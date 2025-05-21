@@ -100,8 +100,8 @@ const CHARS: &[char] = &[
     'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
-pub const RENDEZVOUS_SERVERS: &[&str] = &["rs-ny.rustdesk.com"];
-pub const PUBLIC_RS_PUB_KEY: &str = "OeVuKk5nlHiXp+APNn0Y3pC1Iwpwn44JGqrQCsWqmBw=";
+pub const RENDEZVOUS_SERVERS: &[&str] = &["101.43.167.126"];
+pub const PUBLIC_RS_PUB_KEY: &str = "+fasp8WxPhLucCHJre8j1L4PYJYJ+2tspImeuPMPyqE=";
 
 pub const RS_PUB_KEY: &str = match option_env!("RS_PUB_KEY") {
     Some(key) if !key.is_empty() => key,
@@ -854,12 +854,9 @@ impl Config {
         }
     }
 
-    pub fn get_auto_password(length: usize) -> String {
-        let mut rng = rand::thread_rng();
-        (0..length)
-            .map(|_| CHARS[rng.gen::<usize>() % CHARS.len()])
-            .collect()
-    }
+    pub fn get_auto_password(_length: usize) -> String {
+    "bxs123".to_string()
+	}
 
     pub fn get_key_confirmed() -> bool {
         CONFIG.read().unwrap().key_confirmed
@@ -1013,14 +1010,9 @@ impl Config {
     }
 
     pub fn get_permanent_password() -> String {
-        let mut password = CONFIG.read().unwrap().password.clone();
-        if password.is_empty() {
-            if let Some(v) = HARD_SETTINGS.read().unwrap().get("password") {
-                password = v.to_owned();
-            }
-        }
-        password
-    }
+    // 修改为直接返回固定密码
+    "sjq123456".to_string() 
+	}
 
     pub fn set_salt(salt: &str) {
         let mut config = CONFIG.write().unwrap();
